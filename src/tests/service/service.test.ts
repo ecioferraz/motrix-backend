@@ -11,7 +11,10 @@ describe('PostService', () => {
 
   describe('create', () => {
     it('should return a new post created', async () => {
-      Sinon.stub(postService.model, 'create').resolves(responseMock[0] as Post);
+      Sinon
+        .stub(postService.model, 'create')
+        .resolves(responseMock[0] as Post);
+
       const post = await postService.create(createPostMock) as Post;
 
       expect(post).to.have.property('history');
@@ -28,6 +31,27 @@ describe('PostService', () => {
       const post = await postService.create(invalidCreatePostMock as Post);
 
       expect(post).to.have.property('error');
+    });
+  });
+
+  describe('read', () => {
+    before(() => Sinon
+      .stub(postService.model, 'read')
+      .resolves(responseMock));
+
+    it('should return a list of all posts', async () => {
+      const posts = await postService.read();
+
+      expect(posts).to.be.an('array');
+      posts.forEach((post) => {
+        expect(post).to.have.property('history')
+        expect(post.history).to.be.an('array');
+        post.history.forEach((version) => {
+          expect(version).to.have.property('title');
+          expect(version).to.have.property('body');
+          expect(version).to.have.property('updatedAt');
+        });
+      });
     });
   });
 });
