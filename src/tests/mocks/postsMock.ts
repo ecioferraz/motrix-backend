@@ -1,15 +1,15 @@
 export const responseMock = [{
-  "history": [
+  history: [
     {
-      "title": "test",
-      "body": "testing",
-      "updatedAt": "2022-08-26T18:41:10.296Z",
-      "_id": "63091a8ef1597685674fd06c"
+      title: "test",
+      body: "testing",
+      updatedAt: new Date("2022-08-26T18:41:10.296Z"),
+      _id: "63091a8ef1597685674fd06c"
     }
   ],
-  "_id": "63091a8ef1597685674fd06b",
-  "createdAt": "2022-08-26T19:10:06.620Z",
-  "updatedAt": "2022-08-26T19:10:06.620Z"
+  _id: "63091a8ef1597685674fd06b",
+  createdAt: new Date("2022-08-26T19:10:06.620Z"),
+  updatedAt: new Date("2022-08-26T19:10:06.620Z")
 }];
 
 export const createPostMock = {
@@ -21,23 +21,23 @@ export const createPostMock = {
 }
 
 export const updateResponseMock = {
-  "_id": "63091a8ef1597685674fd06b",
-  "history": [
+  _id: "63091a8ef1597685674fd06b",
+  history: [
     {
-      "title": "test2",
-      "body": "testing2",
-      "updatedAt": "2022-08-27T18:53:43.234Z",
-      "_id": "63093e693cf4365539d649fe"
+      title: "test2",
+      body: "testing2",
+      updatedAt: new Date("2022-08-27T18:53:43.234Z"),
+      _id: "63093e693cf4365539d649fe"
     },
     {
-      "title": "test",
-      "body": "testing",
-      "updatedAt": "2022-08-26T18:41:10.296Z",
-      "_id": "63091a8ef1597685674fd06c"
+      title: "test",
+      body: "testing",
+      updatedAt: new Date("2022-08-26T18:41:10.296Z"),
+      _id: "63091a8ef1597685674fd06c"
     }
   ],
-  "createdAt": "2022-08-26T19:10:06.620Z",
-  "updatedAt": "2022-08-26T21:43:05.074Z"
+  createdAt: "2022-08-26T19:10:06.620Z",
+  updatedAt: new Date("2022-08-26T21:43:05.074Z"),
 }
 
 export const updatePostMock = {
