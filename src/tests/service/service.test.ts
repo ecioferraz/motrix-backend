@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Sinon from 'sinon';
 import { Post } from '../../schema/PostSchema';
 import PostService from '../../service/PostService';
-import { createPostMock, invalidCreatePostMock, responseMock } from '../mocks/postsMock';
+import { createPostMock, invalidCreatePostMock, MOCK_ID, responseMock } from '../mocks/postsMock';
 
 describe('PostService', () => {
   const postService = new PostService();
@@ -52,6 +52,18 @@ describe('PostService', () => {
           expect(version).to.have.property('updatedAt');
         });
       });
+    });
+  });
+
+  describe('readOne', () => {
+    before(() => Sinon
+      .stub(postService.model, 'readOne')
+      .resolves(responseMock[0]));
+
+    it('should return the required post', async () => {
+      const post = await postService.readOne(MOCK_ID);
+
+      expect(post).to.be.deep.eq(responseMock[0]);
     });
   });
 });
