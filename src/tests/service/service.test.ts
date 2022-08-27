@@ -78,4 +78,22 @@ describe('PostService', () => {
       expect(updatedPost).to.be.deep.eq(updateResponseMock);
     });
   });
+
+  describe('delete', () => {
+    before(() => Sinon
+      .stub(postService.model, 'delete')
+      .resolves(responseMock[0]));
+
+    it('should return the task deleted', async () => {
+      const deletedPost = await postService.delete(MOCK_ID) as Post;
+
+      expect(deletedPost).to.have.property('history');
+      expect(deletedPost?.history).to.be.an('array');
+      deletedPost?.history.forEach((version) => {
+        expect(version).to.have.property('title');
+        expect(version).to.have.property('body');
+        expect(version).to.have.property('updatedAt');
+      });
+    });
+  });
 });
