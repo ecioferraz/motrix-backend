@@ -66,7 +66,7 @@ describe('PostModel', () => {
       post?.history.forEach((version) => {
         expect(version.title).to.be.eq('test');
         expect(version.body).to.be.eq('testing');
-        expect(version.updatedAt).to.be.a('string');
+        expect(version.updatedAt).to.be.a('date');
       });
     });
   });
@@ -83,10 +83,10 @@ describe('PostModel', () => {
       expect(updatedPost?.history).to.be.an('array');
       expect(updatedPost?.history[0].title).to.be.eq('test2');
       expect(updatedPost?.history[0].body).to.be.eq('testing2');
-      expect(updatedPost?.history[0].updatedAt).to.be.a('string');
+      expect(updatedPost?.history[0].updatedAt).to.be.a('date');
       expect(updatedPost?.history[1].title).to.be.eq('test');
       expect(updatedPost?.history[1].body).to.be.eq('testing');
-      expect(updatedPost?.history[1].updatedAt).to.be.a('string');
+      expect(updatedPost?.history[1].updatedAt).to.be.a('date');
     });
   });
 
