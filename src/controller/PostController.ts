@@ -109,7 +109,7 @@ export default class PostController extends Controller<Post> {
 
       const post = await this.service.delete(id);
 
-      return post ? res.status(this.status.NO_CONTENT).json(post)
+      return post ? res.status(this.status.NO_CONTENT).end()
         : res.status(this.status.NOT_FOUND)
           .json({ error: this.errors.notFound });
     } catch (error) {
