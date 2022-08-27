@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Sinon from 'sinon';
 import { Post } from '../../schema/PostSchema';
 import PostService from '../../service/PostService';
-import { createPostMock, invalidCreatePostMock, MOCK_ID, responseMock } from '../mocks/postsMock';
+import { createPostMock, invalidCreatePostMock, MOCK_ID, responseMock, updatePostMock, updateResponseMock } from '../mocks/postsMock';
 
 describe('PostService', () => {
   const postService = new PostService();
@@ -64,6 +64,18 @@ describe('PostService', () => {
       const post = await postService.readOne(MOCK_ID);
 
       expect(post).to.be.deep.eq(responseMock[0]);
+    });
+  });
+
+  describe('update', () => {
+    before(() => Sinon
+        .stub(postService.model, 'update')
+        .resolves(updateResponseMock));
+
+    it('should return an updated post', async () => {
+      const updatedPost = await postService.update(MOCK_ID, updatePostMock);
+
+      expect(updatedPost).to.be.deep.eq(updateResponseMock);
     });
   });
 });
