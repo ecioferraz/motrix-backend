@@ -2,7 +2,14 @@ import { expect } from 'chai';
 import Sinon from 'sinon';
 import { Post } from '../../schema/PostSchema';
 import PostService from '../../service/PostService';
-import { createPostMock, invalidCreatePostMock, MOCK_ID, responseMock, updatePostMock, updateResponseMock } from '../mocks/postsMock';
+import {
+  createPostMock,
+  invalidCreatePostMock,
+  MOCK_ID,
+  responseMock,
+  updatePostMock,
+  updateResponseMock,
+} from '../mocks/postsMock';
 
 describe('PostService', () => {
   const postService = new PostService();
