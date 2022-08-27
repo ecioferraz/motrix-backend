@@ -3,7 +3,16 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../server';
 import PostModel from '../../model/PostModel';
-import { createRequestBody, invalidCreatePostMock, MOCK_ID, responseBodyMock, responseMock } from '../mocks/postsMock';
+import {
+  createRequestBody,
+  invalidCreatePostMock,
+  MOCK_ID,
+  responseBodyMock,
+  responseMock,
+  updateRequestBody,
+  updateResponseBodyMock,
+  updateResponseMock,
+} from '../mocks/postsMock';
 
 chai.use(chaiHttp);
 
@@ -107,5 +116,43 @@ describe('PostController', () => {
       expect(chaiHttpResponse).to.have.status(500);
       expect(chaiHttpResponse.body.error).to.be.eq('Internal Server Error');
     });
+  });
+
+  describe('update', () => {
+    before(() => Sinon
+      .stub(postModel.model, 'findByIdAndUpdate')
+      .onFirstCall().resolves(updateResponseMock)
+      .onSecondCall().throws()
+      .onThirdCall().throws());
+
+      it('should return status 200 and an updated post when id and data are valid', async () => {
+        chaiHttpResponse = await chai
+          .request(app)
+          .put(`/${MOCK_ID}`)
+          .send(updateRequestBody);
+        
+        expect(chaiHttpResponse).to.have.status(200);
+        expect(chaiHttpResponse.body).to.be.deep.eq(updateResponseBodyMock);
+      });
+
+      it('should return status 400 and an invalid id error message when the id is invalid', async () => {
+        chaiHttpResponse = await chai
+          .request(app)
+          .put('/invalidId')
+          .send(updateRequestBody);
+
+        expect(chaiHttpResponse).to.have.status(400);
+        expect(chaiHttpResponse.body.error).to.be.eq('Id must have 24 hexadecimal characters');
+      });
+
+      it('should return status 500 and an "Internal Server Error" message', async () => {
+        chaiHttpResponse = await chai
+          .request(app)
+          .get(`/${MOCK_ID}`)
+          .send(updateRequestBody);
+
+        expect(chaiHttpResponse).to.have.status(500);
+        expect(chaiHttpResponse.body.error).to.be.eq('Internal Server Error');
+      });
   });
 });
