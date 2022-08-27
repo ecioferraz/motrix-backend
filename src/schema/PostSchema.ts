@@ -18,7 +18,12 @@ const PostSchema = z.object({
 
 type Post = z.infer<typeof PostSchema>;
 
+interface ITestPost extends Post {
+  id: string,
+}
+
 export {
+  ITestPost,
   Post,
   PostSchema,
 };
