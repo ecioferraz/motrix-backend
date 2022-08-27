@@ -125,34 +125,74 @@ describe('PostController', () => {
       .onSecondCall().throws()
       .onThirdCall().throws());
 
-      it('should return status 200 and an updated post when id and data are valid', async () => {
-        chaiHttpResponse = await chai
-          .request(app)
-          .put(`/${MOCK_ID}`)
-          .send(updateRequestBody);
-        
-        expect(chaiHttpResponse).to.have.status(200);
-        expect(chaiHttpResponse.body).to.be.deep.eq(updateResponseBodyMock);
-      });
+    it('should return status 200 and an updated post when id and data are valid', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .put(`/${MOCK_ID}`)
+        .send(updateRequestBody);
+      
+      expect(chaiHttpResponse).to.have.status(200);
+      expect(chaiHttpResponse.body).to.be.deep.eq(updateResponseBodyMock);
+    });
 
-      it('should return status 400 and an invalid id error message when the id is invalid', async () => {
-        chaiHttpResponse = await chai
-          .request(app)
-          .put('/invalidId')
-          .send(updateRequestBody);
+    it('should return status 400 and an invalid id error message when the id is invalid', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .put('/invalidId')
+        .send(updateRequestBody);
 
+      expect(chaiHttpResponse).to.have.status(400);
+      expect(chaiHttpResponse.body.error).to.be.eq('Id must have 24 hexadecimal characters');
+    });
+
+    it('should return status 500 and an "Internal Server Error" message', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .get(`/${MOCK_ID}`)
+        .send(updateRequestBody);
+
+      expect(chaiHttpResponse).to.have.status(500);
+      expect(chaiHttpResponse.body.error).to.be.eq('Internal Server Error');
+    });
+  });
+
+  describe('delete', () => {
+    before(() => Sinon
+      .stub(postModel.model, 'findByIdAndDelete')
+      .onFirstCall().resolves(responseMock[0])
+      .onSecondCall().throws()
+      .onThirdCall().throws());
+
+    after(() => Sinon.restore());
+
+    it('should return status 204 when the id is valid', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .delete(`/${MOCK_ID}`)
+        .send();
+
+      expect(chaiHttpResponse).to.have.status(204);
+      expect(chaiHttpResponse.body).to.been.empty;
+    });
+
+    it('should return status 400 and an invalid id error message when the id is invalid', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .delete('/invalidId')
+        .send();
+      
         expect(chaiHttpResponse).to.have.status(400);
         expect(chaiHttpResponse.body.error).to.be.eq('Id must have 24 hexadecimal characters');
-      });
+    });
 
-      it('should return status 500 and an "Internal Server Error" message', async () => {
-        chaiHttpResponse = await chai
-          .request(app)
-          .get(`/${MOCK_ID}`)
-          .send(updateRequestBody);
-
-        expect(chaiHttpResponse).to.have.status(500);
-        expect(chaiHttpResponse.body.error).to.be.eq('Internal Server Error');
-      });
+    it('should return status 500 and an "Internal Server Error" message', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .delete(`/${MOCK_ID}`)
+        .send();
+      
+      expect(chaiHttpResponse).to.have.status(500);
+      expect(chaiHttpResponse.body.error).to.be.eq('Internal Server Error');
+    });
   });
 });
