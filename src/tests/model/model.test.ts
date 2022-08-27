@@ -72,11 +72,9 @@ describe('PostModel', () => {
   });
 
   describe('update', () => {
-    before(() => {
-      Sinon
+    before(() => Sinon
         .stub(postModel.model, 'findByIdAndUpdate')
-        .resolves(updateResponseMock);
-    });
+        .resolves(updateResponseMock));
 
     it('should return an updated post', async () => {
       const updatedPost = await postModel.update(MOCK_ID, updatePostMock);
@@ -93,11 +91,9 @@ describe('PostModel', () => {
   });
 
   describe('delete', () => {
-    before(() => {
-      Sinon
+    before(() => Sinon
         .stub(postModel.model, 'findByIdAndDelete')
-        .resolves(responseMock[0]);
-    });
+        .resolves(responseMock[0]));
 
     it('should return the task deleted', async () => {
       const deletedPost = await postModel.delete(MOCK_ID);
