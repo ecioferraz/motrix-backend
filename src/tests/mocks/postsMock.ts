@@ -20,6 +20,13 @@ export const createPostMock = {
   }],
 }
 
+export const invalidCreatePostMock = {
+  history: [{
+    body: 'testing',
+    updatedAt: new Date(),
+  }],
+}
+
 export const updateResponseMock = {
   _id: "63091a8ef1597685674fd06b",
   history: [
