@@ -1,4 +1,5 @@
 import express, { Application, Router } from 'express';
+import cors from 'cors';
 import connectToDatabase from './connection';
 
 export default class App {
@@ -7,6 +8,7 @@ export default class App {
   constructor() {
     this.app = express();
     this.app.use(express.json());
+    this.app.use(cors());
   }
 
   public startServer(PORT: string | number = 3001): void {
