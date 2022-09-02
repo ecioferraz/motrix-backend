@@ -6,8 +6,6 @@ O Motrix Blog se trata de um blog onde é possível publicar, editar, visualizar
 
 ## Stack e ferramentas utilizadas
 
-**Front-end:** React, Typescript, Axios, Eslint, TipTap, React Icons, HTML React Parser.
-
 **Back-end:** Express, Typescript, NodeJs, MongoDB, Mongoose, Eslint, Zod.
 
 
